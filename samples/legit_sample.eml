@@ -1,0 +1,19 @@
+Message-ID: <training-reminder-1002@agency.example>
+Authentication-Results: mx.agency.example; spf=pass
+ smtp.mailfrom=agency.example; dkim=pass header.d=agency.example; dmarc=pass
+ header.from=agency.example
+From: "IT Help Desk" <helpdesk@agency.example>
+Reply-To: helpdesk@agency.example
+Return-Path: <helpdesk@agency.example>
+To: analyst@agency.example
+Subject: Reminder: quarterly training due Friday
+Date: Fri, 02 Oct 2026 10:02:00 -0400
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Hi team,
+Please finish the quarterly training on the intranet: https://intranet.agency=
+.example/training
+Thanks,
+IT Help Desk

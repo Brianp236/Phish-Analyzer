@@ -1,0 +1,8 @@
+imap-tools
+requests
+google-auth
+google-auth-oauthlib
+playwright
+rich
+# optional, only for the YARA step (docs/yara-step.md)
+# yara-python

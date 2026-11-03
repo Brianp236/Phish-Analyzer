@@ -1,0 +1,52 @@
+Message-ID: <a91f3c2e-7731@mailer-7731.example>
+Return-Path: <bounce@mailer-7731.example>
+Authentication-Results: mx.agency.example; spf=fail (sender IP is
+ 203.0.113.66) smtp.mailfrom=mailer-7731.example; dkim=none; dmarc=fail
+ (p=REJECT) header.from=paypa1-secure.example
+From: "PayPal Security" <service@paypa1-secure.example>
+Reply-To: support-desk@freemail-inbox.example
+To: analyst@agency.example
+Subject: URGENT: Unusual activity - account will be suspended
+Date: Fri, 02 Oct 2026 09:14:00 -0400
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============1869068986701496892=="
+
+--===============1869068986701496892==
+Content-Type: multipart/alternative;
+ boundary="===============9141397413754655168=="
+
+--===============9141397413754655168==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+We detected unusual activity on your account.
+Verify your account within 24 hours or your account will be suspended:
+http://192.0.2.45/paypal/verify
+
+--===============9141397413754655168==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<html><body>
+<p>Dear Customer,</p>
+<p>We detected <b>unusual activity</b> on your account. Verify your account w=
+ithin 24 hours
+or your account will be suspended.</p>
+<p><a href=3D"http://paypa1-secure.example/login?id=3D88213">https://www.payp=
+al.com/signin</a></p>
+<p>Or <a href=3D"http://192.0.2.45/paypal/verify">click here</a>.</p>
+<p>PayPal Security Team</p></body></html>
+
+--===============9141397413754655168==--
+
+--===============1869068986701496892==
+Content-Type: text/html
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="Invoice_2026_0931.pdf.html"
+MIME-Version: 1.0
+
+PGh0bWw+PGJvZHk+PGgxPkRFTU8gT05MWSAtIGhhcm1sZXNzIGZha2UgaW52b2ljZSBwYWdlPC9o
+MT48L2JvZHk+PC9odG1sPg==
+
+--===============1869068986701496892==--

@@ -1,0 +1,93 @@
+<!-- Example rules for the Wazuh manager: add to /var/ossec/etc/rules/local_rules.xml, then restart wazuh-manager.
+     Change the IDs if they clash with rules you already have (custom IDs run 100000-120000). -->
+<group name="phishing,analyzer,">
+
+  <!-- Base rule: any event from the analyzer -->
+  <rule id="100100" level="3">
+    <decoded_as>json</decoded_as>
+    <field name="event_type">^email_triage$|^attachment_scan$|^quarantine$|^link_fetch$</field>
+    <description>Phish analyzer: $(event_type)</description>
+  </rule>
+
+  <!-- Final email verdicts -->
+  <rule id="100110" level="7">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^email_triage$</field>
+    <field name="verdict">^suspicious$</field>
+    <description>Suspicious email from $(email_from): $(email_subject)</description>
+    <mitre><id>T1566</id></mitre>
+  </rule>
+
+  <rule id="100111" level="12">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^email_triage$</field>
+    <field name="verdict">^malicious$</field>
+    <description>MALICIOUS email from $(email_from): $(email_subject)</description>
+    <mitre><id>T1566</id></mitre>
+  </rule>
+
+  <!-- Attachment detonated in CAPE and judged malicious -->
+  <rule id="100120" level="12">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^attachment_scan$</field>
+    <field name="verdict">^malicious$</field>
+    <description>Malicious attachment $(filename) (CAPE malscore $(cape_malscore))</description>
+    <mitre><id>T1566.001</id></mitre>
+  </rule>
+
+  <!-- YARA rule matched an attachment (check with wazuh-logtest: arrays arrive comma-joined) -->
+  <rule id="100121" level="10">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^attachment_scan$</field>
+    <field name="yara_matches">\S</field>
+    <description>YARA match on attachment $(filename): $(yara_matches)</description>
+    <mitre><id>T1566.001</id></mitre>
+  </rule>
+
+  <!-- A file was downloaded from a link in an email for scanning -->
+  <rule id="100122" level="6">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^link_fetch$</field>
+    <field name="status">^downloaded$</field>
+    <description>Analyzer fetched a file from an email link: $(url)</description>
+  </rule>
+
+  <!-- Response actions -->
+  <rule id="100130" level="10">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^quarantine$</field>
+    <field name="action">quarantined$|vaulted$</field>
+    <description>Email quarantined: $(email_subject)</description>
+  </rule>
+
+  <rule id="100131" level="8">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^quarantine$</field>
+    <field name="action">released$</field>
+    <description>Analyst released a quarantined item</description>
+  </rule>
+
+  <!-- Quarantine vault: a step failed, someone must check by hand -->
+  <rule id="100132" level="12">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^quarantine$</field>
+    <field name="action">_failed$</field>
+    <description>Quarantine step failed ($(action)) for case $(qid): check by hand</description>
+  </rule>
+
+  <!-- Quarantine vault: routine custody steps -->
+  <rule id="100133" level="3">
+    <if_sid>100100</if_sid>
+    <field name="event_type">^quarantine$</field>
+    <field name="action">^intake$|^purged_from_gmail$|^stub_delivered$</field>
+    <description>Quarantine custody: $(action) $(qid)</description>
+  </rule>
+
+  <!-- Gmail OAuth token died: analyzer stopped -->
+  <rule id="100140" level="10">
+    <decoded_as>json</decoded_as>
+    <field name="event_type">^auth_failed$</field>
+    <description>Phish analyzer cannot log in to Gmail: $(reason)</description>
+  </rule>
+
+</group>
