@@ -134,7 +134,7 @@ on LimeWire, protected by a decryption key in the link.
 runs all five stages, and the inbox ends up holding only the quarantine notice. The file is also in
 [`results/full_run.mp4`](results/full_run.mp4).
 
-<!-- On GitHub, edit this file and drag results/full_run.mp4 onto this line to embed the player. -->
+https://github.com/user-attachments/assets/4514d2a3-97a5-42cc-b370-1b7eddbca7f3
 
 During testing, a real "You Have Been Qualified" phish with a PDF attachment also arrived, from what looked like
 a compromised account. Authentication passed and the triage score was 0, but a high-severity YARA signature in
