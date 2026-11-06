@@ -1,0 +1,29 @@
+# Secrets: never commit
+secrets.env
+*.env
+!secrets.env.example
+token.json
+client_secret*.json
+oauth/*.json
+
+# Live data from the analyzer VM: real emails, payloads, logs
+emails/
+quarantine/
+released/
+attachments/
+logs/
+link_screenshots/
+*.quarantined
+*.exe
+*.dll
+*.zip
+*.eml
+!samples/*.eml
+
+# Large third-party rule sets (download separately)
+yara/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
